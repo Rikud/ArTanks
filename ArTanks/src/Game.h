@@ -4,8 +4,8 @@
 #include "Land.h"
 #include "AppState.h"
 #include "Player.h"
-#include <cassert>
-
+#include "utilities.h"
+#include "Application.h"
 class Game : public AppState
 {
 public:
@@ -16,7 +16,7 @@ public:
     void reset();
 
     void newGame(int n_players = 2,Land::Landtype land_t = Land::Random);
-
+    void addPlayer();
     inline int getLandHeight(int x){ return land->getHeight(x); }
     inline float getLandNormAng(int x,int y){ return land->getNormAngle(x,y); }
     WorldObject* addWorldObj(WorldObject* wo){ return world.addObj(wo); }

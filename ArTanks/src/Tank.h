@@ -1,6 +1,7 @@
 #ifndef Tank_H
 #define Tank_H
-
+#include "Application.h"
+#include "utilities.h"
 #include "WorldObject.h"
 class Player;
 class Tank : public WorldObject

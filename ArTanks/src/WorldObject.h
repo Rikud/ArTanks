@@ -16,7 +16,7 @@ public:
 		TankType,
 		WeaponType,
 		WeaponPostEffectType,
-
+		SightType,
     } type;
     WorldObject() = default;
     WorldObject(Type m_type) : type(m_type) {} 

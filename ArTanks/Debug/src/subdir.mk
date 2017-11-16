@@ -8,6 +8,7 @@ CPP_SRCS += \
 ../src/Game.cpp \
 ../src/Land.cpp \
 ../src/Player.cpp \
+../src/Sight.cpp \
 ../src/Tank.cpp \
 ../src/World.cpp \
 ../src/simplexnoise.cpp 
@@ -17,6 +18,7 @@ OBJS += \
 ./src/Game.o \
 ./src/Land.o \
 ./src/Player.o \
+./src/Sight.o \
 ./src/Tank.o \
 ./src/World.o \
 ./src/simplexnoise.o 
@@ -26,6 +28,7 @@ CPP_DEPS += \
 ./src/Game.d \
 ./src/Land.d \
 ./src/Player.d \
+./src/Sight.d \
 ./src/Tank.d \
 ./src/World.d \
 ./src/simplexnoise.d 

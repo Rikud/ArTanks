@@ -1,6 +1,4 @@
-#include "Application.h"
-#include "utilities.h"
-#include <cassert>
+#include "Game.h"
 
 Game::Game() :
     AppState(GameState),
@@ -13,16 +11,22 @@ void Game::reset()
 }
 void Game::newGame(int n_players,Land::Landtype land_t)
 {
-
     world.clear();
     land = static_cast<Land*>(world.addObj(WorldObject::LandType));
     land->genHeightMap(land_t);
-    Tank* pTank = static_cast<Tank*>(world.addObj(WorldObject::TankType));
-    this->player = new Player(pTank);
-    int x = rand() % (windowWidth - 20) + 10;
-    pTank->setPosition(sf::Vector2f(x,windowHeight-getLandHeight(x)-10));
-    pTank->setPlayer(this->player);
+    this->addPlayer();
     world.play();
+    Application::getWindow().setMouseCursorVisible(false);
+}
+
+void Game::addPlayer() {
+	Tank* pTank = static_cast<Tank*>(world.addObj(WorldObject::TankType));
+	Sight* pSight = static_cast<Sight*>(world.addObj(WorldObject::SightType));
+	this->player = new Player(pTank, pSight);
+	int x = rand() % (windowWidth - 20) + 10;
+	pTank->setPosition(sf::Vector2f(x,windowHeight-getLandHeight(x)-10));
+	pTank->setPlayer(this->player);
+	pSight->setPlayer(this->player);
 }
 
 void Game::draw(sf::RenderWindow &window)
@@ -47,5 +51,8 @@ void Game::passEvent(sf::Event Event)
 			this->player->moveTank(1);
 			break;
 		}
+	}
+	else if (Event.type == sf::Event::MouseMoved) {
+		this->player->moveCursor();
 	}
 }
