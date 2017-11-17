@@ -109,6 +109,63 @@ void Land::step(float dt) {
 
 }
 
+void Land::destroyCircle(int x0, int y0, int radius)
+{
+    int x = 0 , y = radius;
+    int sqradius = radius*radius;
+    while( x < radius )
+    {
+        destroyColumn(x0+x,y0-y,y0+y);
+        destroyColumn(x0-x,y0-y,y0+y);
+        ++x;
+        y = cachedSqrt(sqradius-x*x)+0.5;
+    }
+}
+
+void Land::destroyColumn(int x,int top,int bottom)
+{
+    if(!isInWindow(x,0))
+        return;
+    int LandTop = windowHeight-hmap[x];
+    bottom = std::min(bottom,windowHeight-1);
+    top = std::max(0,top);
+    if(bottom > LandTop)
+    {
+    // We have two cases ,
+        // case 1 the part is inside the Land , making a cavity
+        if(top > LandTop)
+        {
+            for(int iy = top; iy <= bottom ; ++iy)
+                LandImg.setPixel(x,iy,sf::Color::Transparent);
+            std::list<slManifest> &slColList = slColumns[x];
+            slManifest cav{top,bottom,60};
+            for(auto i = slColList.begin() ;;) //insert the cavity appropriately into the list
+            {
+                if(cav.dest < i->src || i == slColList.end())
+                {
+                    slColList.insert(i,cav);
+                    break;
+                }
+                if(i->intersects(cav)) //then merge i to cav and continue with the new i
+                {
+                    cav.merge(*i);
+                    i = slColList.erase(i);
+                }
+                else ++i;
+            }
+        }
+        // case 2 the part is on the surface , it makes a crater
+        else
+        {
+            for(int iy = LandTop; iy <= bottom ; ++iy)
+                LandImg.setPixel(x,iy,sf::Color::Transparent);
+            hmap[x] = windowHeight-bottom;
+        }
+        hmap[x] = std::max(hmap[x],0);
+        LandModified = true;
+    }
+}
+
 bool Land::isPixelSolid(int x,int y)
 {
     if(isInRange(size_t(x),size_t(0),hmap.size()))

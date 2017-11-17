@@ -3,7 +3,8 @@
 Game::Game() :
     AppState(GameState),
     land(nullptr),
-	player(nullptr)
+	player(nullptr),
+	counter(0)
 {}
 void Game::reset()
 {
@@ -49,6 +50,9 @@ void Game::passEvent(sf::Event Event)
 			break;
 		case sf::Keyboard::Right:
 			this->player->moveTank(1);
+			break;
+		case sf::Keyboard::RControl:
+			this->player->fire();
 			break;
 		}
 	}

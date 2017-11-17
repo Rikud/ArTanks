@@ -13,8 +13,7 @@ public:
     inline void setTank(Tank *t){myTank = t;}
     inline void setTurretAngle(float f){ myTank->turret.setRotation(f); }
     inline void moveCursor() {this->mySight->move();}
-    //inline void setPower(float pow){ power=pow;}
-    //inline float getPower(){ return power; }
+    void fire();
     inline void setTankPos(const sf::Vector2f& pos) { myTank->setPosition(pos); }
     inline float getTurretAngle(){ return myTank->turret.getRotation(); }
     inline const sf::Vector2f& getTankPos() { return myTank->tank.getPosition(); }
@@ -23,11 +22,12 @@ public:
     inline void setLife(int l){life = l;}
     inline int getLife() { return life; }
     inline bool isDead(){return !(life);}
+    inline bool readyTofire(){return myTank->readyToFire;}
 private:
     Tank* myTank;
     Sight* mySight;
     int life;
-    //float power; //in range [0,1]
+    float power; //in range [0,1]
 };
 typedef std::unique_ptr<Player> Playerptr;
 #endif // PLAYER_H
