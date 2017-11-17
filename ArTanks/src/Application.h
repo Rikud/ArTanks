@@ -3,8 +3,9 @@
 #include <deque>
 #include <string>
 #include <SFML/Graphics.hpp>
-#include "Game.h"
-
+#include "utilities.h"
+#include "AppState.h"
+class Game;
 class Application
 {
 public:

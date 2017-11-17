@@ -1,7 +1,5 @@
 #include "Tank.h"
-#include "Application.h"
-#include "utilities.h"
-
+#include "Game.h"
 #define HMAP(n)        Application::getGame().getLandHeight(n)
 #define R_POINTDIST(n) (cachedSqrt(1 + (HMAP(n) - HMAP((n)+1))*(HMAP(n) - HMAP((n)+1)))+0.5)
 #define L_POINTDIST(n) (-cachedSqrt(1+ (HMAP((n)-1) - HMAP(n))*(HMAP((n)-1) - HMAP(n)))-0.5)
@@ -19,7 +17,9 @@ Tank::Tank() :
     freefall(true),
     velocity(),
     fadingLife(true),
-    fadingTimer(1)
+    fadingTimer(1),
+	readyToFire(true),
+	reloadTimer(0.0)
 	{
 		if (tankTexture.loadFromFile("texture/tank.png"))
 		{
@@ -49,7 +49,7 @@ sf::RectangleShape Tank::getTankRect()
 void Tank::setPlayer(Player *p)
 {
     myOwner = p;
-    setPosition(tank.getPosition());
+    //setPosition(tank.getPosition());
 }
 
 void Tank::handleCollision(WorldObject &b)
@@ -112,7 +112,6 @@ void Tank::step(float dt)
             float xvel = std::max(2.0f,lvelocity*std::cos(phi))*((moving<0)?-1:1);
             sf::Vector2f ds(xvel*dt,0);
             ds.y = windowHeight-HMAP(tank.getPosition().x+ds.x)-tank.getPosition().y;
-            moving = 0;
             if(ds.y < 0 && std::abs(ds.y/ds.x) > std::tan(TO_RAD(80))) //if ascend (going up) is too steep
                 return;
             tank.move(ds);
@@ -126,6 +125,12 @@ void Tank::step(float dt)
     {
         fadingLife = true;
         fadingTimer = 1;
+    }
+    if (this->readyToFire == false) {
+    	this->reloadTimer += dt;
+    	if (this->reloadTimer >= 3) {
+    		this->readyToFire = true;
+    	}
     }
 }
 void Tank::reset()
@@ -142,4 +147,19 @@ void Tank::setPosition(const sf::Vector2f& pos)
     tank.setPosition(pos);
     turret.setPosition(pos-sf::Vector2f(0,TANK_HEIGHT/2));
 
+}
+
+void Tank::weapAct(float dlife)
+{
+    int newlife = std::max(0.0f,myOwner->getLife()-dlife);
+    myOwner->setLife(newlife);
+    if(newlife == 0)
+    {
+        selfDestruct = true;
+    }
+}
+
+void Tank::startReload() {
+	this->readyToFire = false;
+	this->reloadTimer = 0.0;
 }

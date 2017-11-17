@@ -16,7 +16,7 @@ public:
 		TankType,
 		WeaponType,
 		WeaponPostEffectType,
-
+		SightType,
     } type;
     WorldObject() = default;
     WorldObject(Type m_type) : type(m_type) {} 
@@ -25,6 +25,7 @@ public:
     virtual void draw(sf::RenderTarget &target) = 0;
     virtual void reset() = 0;
     virtual void step(float dt) = 0;
+    bool selfDestruct; //if true, World deletes the object
 };
 
 #endif // WORLDOBJECT_H

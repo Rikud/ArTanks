@@ -1,6 +1,7 @@
 #include "World.h"
 #include "Land.h"
 #include "Tank.h"
+#include "Sight.h"
 #include <iostream>
 
 World::World() : timer(0) { }
@@ -20,8 +21,11 @@ WorldObject* World::addObj(WorldObject::Type t)
 		obj.reset(new Tank());
 		break;
     case WorldObject::LandType:
-        obj.reset(new Land());
-        break;
+		obj.reset(new Land());
+		break;
+    case WorldObject::SightType:
+		obj.reset(new Sight());
+		break;
     default:
         playNice = false;
     }
@@ -52,12 +56,19 @@ void World::stepAll(float dt)
         //crudeStepAll(updateRate);
         for(auto objit = objects.begin();objit != objects.end();)
 		{
-			//перебор всех остальных объектов
-			for(auto j = std::next(objit) ; j != objects.end() ; ++j)
-				//проверка взаимодействий объектов
-				(*objit)->handleCollision(*(*j).get());
-				(*objit)->step(updateRate);
-				++objit;
+        	if (!((*objit)->selfDestruct))
+        	{
+				//перебор всех остальных объектов
+				for(auto j = std::next(objit) ; j != objects.end() ; ++j)
+					//проверка взаимодействий объектов
+					(*objit)->handleCollision(*(*j).get());
+					(*objit)->step(updateRate);
+					++objit;
+        	}
+        	else
+        	{
+        		objit = objects.erase(objit);
+        	}
 		}
     }
 }
