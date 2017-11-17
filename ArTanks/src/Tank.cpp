@@ -112,7 +112,6 @@ void Tank::step(float dt)
             float xvel = std::max(2.0f,lvelocity*std::cos(phi))*((moving<0)?-1:1);
             sf::Vector2f ds(xvel*dt,0);
             ds.y = windowHeight-HMAP(tank.getPosition().x+ds.x)-tank.getPosition().y;
-            moving = 0;
             if(ds.y < 0 && std::abs(ds.y/ds.x) > std::tan(TO_RAD(80))) //if ascend (going up) is too steep
                 return;
             tank.move(ds);

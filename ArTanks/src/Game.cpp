@@ -41,7 +41,7 @@ void Game::update(float dt)
 }
 void Game::passEvent(sf::Event Event)
 {
-	if(Event.type == sf::Event::KeyPressed)
+	if(Event.type == sf::Event::KeyPressed && this->player->getTankMove() == 0)
 	{
 		switch(Event.key.code)
 		{
@@ -51,10 +51,13 @@ void Game::passEvent(sf::Event Event)
 		case sf::Keyboard::Right:
 			this->player->moveTank(1);
 			break;
-		case sf::Keyboard::RControl:
-			this->player->fire();
-			break;
 		}
+	}
+	else if(Event.type == sf::Event::KeyReleased && (Event.key.code == sf::Keyboard::Left || Event.key.code == sf::Keyboard::Right)) {
+		this->player->moveTank(0);
+	}
+	else if(Event.type == sf::Event::MouseButtonPressed && Event.mouseButton.button == sf::Mouse::Left) {
+		this->player->fire();
 	}
 	else if (Event.type == sf::Event::MouseMoved) {
 		this->player->moveCursor();

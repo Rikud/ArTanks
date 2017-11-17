@@ -23,6 +23,7 @@ public:
     inline int getLife() { return life; }
     inline bool isDead(){return !(life);}
     inline bool readyTofire(){return myTank->readyToFire;}
+    inline int getTankMove() {return myTank->moving;}
 private:
     Tank* myTank;
     Sight* mySight;
