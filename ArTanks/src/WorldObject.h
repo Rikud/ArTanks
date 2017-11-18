@@ -12,19 +12,20 @@ public:
     enum Type
     {
     	PassiveType ,
-		LandType,
-		TankType,
-		WeaponType,
-		WeaponPostEffectType,
-
+    	LandType,
+    	TankType,
+    	WeaponType,
+    	WeaponPostEffectType,
+    	SightType,
     } type;
     WorldObject() = default;
-    WorldObject(Type m_type) : type(m_type) {} 
+    WorldObject(Type m_type) : type(m_type) {}
     virtual ~WorldObject(){};
     virtual void handleCollision(WorldObject &b) = 0;
     virtual void draw(sf::RenderTarget &target) = 0;
     virtual void reset() = 0;
     virtual void step(float dt) = 0;
+    bool selfDestruct; //if true, World deletes the object
 };
 
 #endif // WORLDOBJECT_H

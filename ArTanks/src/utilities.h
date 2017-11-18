@@ -43,6 +43,7 @@ T inline sq(T a)
 {
     return a*a;
 }
+
 inline float round(float number,float divisor)
 {
     return divisor*static_cast<long long>(number/divisor+0.5);
@@ -57,6 +58,13 @@ inline bool contains(T rectX,T rectY,T width,T height,T x, T y)
 {
     return (x >= rectX) && (x < rectX+width) && (y >= rectY) && (y < rectY+height);
 }
+
+sf::Vector2f RotatePoint(sf::Vector2f Point, sf::Vector2f Origin, double phi);
+
+bool intersects(sf::CircleShape circle, sf::RectangleShape rect);
+
+double cachedSqrt(int num);
+
 
 sf::Color inline grad(double t , sf::Color a, sf::Color b)
 {

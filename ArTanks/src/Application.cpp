@@ -1,11 +1,13 @@
 #include "Application.h"
 #include "utilities.h"
 #include "ResourceIdentifiers.h"
+#include "Game.h"
 
 void Application::run()
 {
 	//создание окна приложения
     mainWindow.create(sf::VideoMode(windowWidth, windowHeight),"ArTanks");
+
     //установка частоты кадров
     mainWindow.setFramerateLimit(120);
     //установка режима вертикальной синхронизации
@@ -14,6 +16,7 @@ void Application::run()
     sf::Clock frameTimer;
     //установка состояния приложения
     changeState(TitleScreenState);
+
     currentState->reset();
     // цикл приложения
     while(mainWindow.isOpen())
@@ -54,6 +57,7 @@ void Application::quit(const std::string& error)
         std::cerr << error << std::endl;
     mainWindow.close();
 }
+
 sf::Texture& Application::getTexture(TextureIdentifier id)
 {
     if(!ResourcesLoaded)
@@ -82,6 +86,7 @@ void Application::loadResources()
     else
         ResourcesLoaded = true;
 }
+
 //смена режима приложения
 void Application::changeState(AppStateType as)
 {
@@ -111,7 +116,6 @@ sf::RenderWindow Application::mainWindow;
 Game Application::mGame;
 GameOverScreen Application::mGameOver;
 TitleScreen Application::titleState;
-
 
 AppState* Application::currentState;
 int main()

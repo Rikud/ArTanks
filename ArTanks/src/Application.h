@@ -7,6 +7,8 @@
 #include "ResourceManager.h"
 #include "TitleScreen.h"
 #include "GameOverScreen.h"
+#include "utilities.h"
+#include "AppState.h"
 
 class Application
 {
@@ -22,6 +24,7 @@ public:
     static void quit(const std::string& error = "none");
     static Game& getGame(){ return mGame; }
 private:
+
     static TextureManager textureMgr;
     static FontManager fontMgr;
     static bool ResourcesLoaded;
