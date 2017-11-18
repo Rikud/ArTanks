@@ -1,15 +1,14 @@
 #ifndef PLAYER_H
 #define PLAYER_H
-#include "Tank.h"
 #include "Sight.h"
-
+#include "Tank.h"
 class Player
 {
 public:
     static const int maxlife = 100;
     Player() = default;
     Player(Tank *val);
-    inline void rotateTurret(float f){ myTank->turret.rotate(f); }
+    inline void rotateTurret(float f){ myTank->turret.rotate(f);}
     inline void setPower(float pow){ power=pow;}
     inline float getPower(){ return power; }
     Player(Tank *val, Sight* sight);
@@ -26,10 +25,10 @@ public:
     inline void setLife(int l){life = l;}
     inline int getLife() { return life; }
     inline bool isDead(){return !(life);}
-private:
-    Tank *myTank;
     inline bool readyTofire(){return myTank->readyToFire;}
     inline int getTankMove() {return myTank->moving;}
+private:
+    Tank *myTank;
     Sight* mySight;
     int life;
     float power; //in range [0,1]

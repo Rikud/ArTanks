@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "utilities.h"
 #include "Game.h"
+#include "Player.h"
 
 #define HMAP(n)        Application::getGame().getLandHeight(n)
 #define R_POINTDIST(n) (cachedSqrt(1 + (HMAP(n) - HMAP((n)+1))*(HMAP(n) - HMAP((n)+1)))+0.5)

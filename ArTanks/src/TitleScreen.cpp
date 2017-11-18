@@ -1,13 +1,14 @@
 #include "TitleScreen.h"
 #include "Application.h"
 #include "utilities.h"
+#include "Game.h"
 
 TitleScreen::TitleScreen()  :
     AppState(TitleScreenState),
     bg(Application::getTexture(TitleBg)),
     mainMenu(Application::getFont(Purisa),40)
 {
-    mainMenu.add("Meow",sf::Color::White);
+    mainMenu.add("Play",sf::Color::White);
     mainMenu.add("Exit",sf::Color::White);
     mainMenu.setSelectionBgColor(sf::Color(0,0,0,100));
     mainMenu.create(windowWidth,0);

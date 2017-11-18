@@ -1,6 +1,3 @@
-#include "Application.h"
-#include "utilities.h"
-#include <cassert>
 #include "Game.h"
 
 Game::Game() :

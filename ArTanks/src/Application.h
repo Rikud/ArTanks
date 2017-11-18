@@ -3,13 +3,12 @@
 #include <deque>
 #include <string>
 #include <SFML/Graphics.hpp>
-#include "Game.h"
 #include "ResourceManager.h"
 #include "TitleScreen.h"
 #include "GameOverScreen.h"
 #include "utilities.h"
 #include "AppState.h"
-
+class Game;
 class Application
 {
 public:
