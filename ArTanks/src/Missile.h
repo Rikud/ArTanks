@@ -1,10 +1,3 @@
-/*
- * Missile.h
- *
- *  Created on: Nov 16, 2017
- *      Author: root
- */
-
 #ifndef MISSILE_H_
 #define MISSILE_H_
 

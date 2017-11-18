@@ -1,9 +1,3 @@
-/*
- * Missile.cpp
- *
- *  Created on: Nov 16, 2017
- *      Author: root
- */
 #include "Missile.h"
 #include "Application.h"
 #include "Land.h"
