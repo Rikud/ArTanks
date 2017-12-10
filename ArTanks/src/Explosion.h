@@ -9,6 +9,7 @@
 #define EXPLOSION_H_
 
 #include "WorldObject.h"
+#include "Animation.h"
 
 class Tank;
 
@@ -25,6 +26,7 @@ public:
 private:
 	std::map<Tank*,bool> tanksActedOn;
 	sf::CircleShape expCircle;
+	std::unique_ptr<Animation> anim;
 };
 
 #endif /* EXPLOSION_H_ */

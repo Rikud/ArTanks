@@ -97,6 +97,7 @@ void Land::handleCollision(WorldObject &b)
 	    {
 	    case TankType:
 	        b.handleCollision(*this);
+	        break;
 	    case WeaponType:
 	        b.handleCollision(*this);
 	        break;

@@ -1,9 +1,10 @@
 #ifndef Tank_H
 #define Tank_H
+
 #include "Application.h"
 #include "utilities.h"
 #include "WorldObject.h"
-class Player;
+class ControlEntity;
 class Tank : public WorldObject
 {
 public:
@@ -16,19 +17,21 @@ public:
     void setMovement(int val);
     void setPosition(const sf::Vector2f& pos);
     void setPosition(int x,int y) { setPosition(sf::Vector2f(x,y)); }
-    friend class Player;
-    void setPlayer(Player *p);
-    Player &getPlayer() { return *myOwner;  }
-    void weapAct(float dlife);
+    friend class ControlEntity;
+    void setOwner(ControlEntity *p);
+    ControlEntity& getOwner() { return *myOwner;  }
     sf::Sprite& getTankSpr(){ return tank; }
     sf::Sprite& getTurretSpr(){ return turret; }
     sf::RectangleShape getTankRect();
+
+    void weapAct(float dlife);
     void startReload();
+
 private:
     void setLifeFill(int l);
     sf::Texture tankTexture;
     sf::Texture turretTexture;
-    Player *myOwner;
+    ControlEntity* myOwner;
     int moving;//on land
     sf::Sprite tank;
     sf::Sprite turret;

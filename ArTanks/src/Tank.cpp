@@ -1,5 +1,9 @@
 #include "Tank.h"
+#include "Application.h"
+#include "utilities.h"
 #include "Game.h"
+#include "ControlEntity.h"
+
 #define HMAP(n)        Application::getGame().getLandHeight(n)
 #define R_POINTDIST(n) (cachedSqrt(1 + (HMAP(n) - HMAP((n)+1))*(HMAP(n) - HMAP((n)+1)))+0.5)
 #define L_POINTDIST(n) (-cachedSqrt(1+ (HMAP((n)-1) - HMAP(n))*(HMAP((n)-1) - HMAP(n)))-0.5)
@@ -18,14 +22,14 @@ Tank::Tank() :
     velocity(),
     fadingLife(true),
     fadingTimer(1),
-	readyToFire(true),
-	reloadTimer(0.0)
+    readyToFire(true),
+  	reloadTimer(0.0)
 	{
-		if (tankTexture.loadFromFile("texture/tank.png"))
+		if (tankTexture.loadFromFile("../texture/tank.png"))
 		{
 			tank.setTexture(tankTexture, true);
 		}
-		if (turretTexture.loadFromFile("texture/turret.png"))
+		if (turretTexture.loadFromFile("../texture/turret.png"))
 		{
 			turret.setTexture(turretTexture, true);
 		}
@@ -46,10 +50,11 @@ sf::RectangleShape Tank::getTankRect()
     return rs;
 }
 
-void Tank::setPlayer(Player *p)
+void Tank::setOwner(ControlEntity *p)
 {
     myOwner = p;
-    //setPosition(tank.getPosition());
+    setPosition(tank.getPosition());
+
 }
 
 void Tank::handleCollision(WorldObject &b)
@@ -133,6 +138,7 @@ void Tank::step(float dt)
     	}
     }
 }
+
 void Tank::reset()
 {
     moving = 0;
