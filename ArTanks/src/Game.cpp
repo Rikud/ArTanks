@@ -4,6 +4,7 @@ Game::Game() :
     AppState(GameState),
     land(nullptr),
 	player(nullptr),
+	botII(nullptr),
 	counter(0)
 {}
 void Game::reset()
@@ -16,6 +17,7 @@ void Game::newGame(int n_players,Land::Landtype land_t)
     land = static_cast<Land*>(world.addObj(WorldObject::LandType));
     land->genHeightMap(land_t);
     this->addPlayer();
+    this->addBot();
     world.play();
     Application::getWindow().setMouseCursorVisible(false);
 }
@@ -26,8 +28,17 @@ void Game::addPlayer() {
 	this->player = new Player(pTank, pSight);
 	int x = rand() % (windowWidth - 20) + 10;
 	pTank->setPosition(sf::Vector2f(x,windowHeight-getLandHeight(x)-10));
-	pTank->setPlayer(this->player);
-	pSight->setPlayer(this->player);
+	pTank->setOwner(this->player);
+}
+
+void Game::addBot() {
+	Tank* pTank = static_cast<Tank*>(world.addObj(WorldObject::TankType));
+	if (this->botII == nullptr) {
+		this->botII = static_cast<BotII*>(world.addObj(WorldObject::IIType));
+	}
+	this->botII->addBot(new Bot(pTank));
+	int x = rand() % (windowWidth - 20) + 10;
+	pTank->setPosition(sf::Vector2f(x,windowHeight-getLandHeight(x)-10));
 }
 
 void Game::draw(sf::RenderWindow &window)
@@ -37,7 +48,11 @@ void Game::draw(sf::RenderWindow &window)
 //обновление событий
 void Game::update(float dt)
 {
-	world.stepAll(dt);
+	if (this->player->isDead()) {
+		Application::changeState(GameOverState);
+	}
+	else
+		world.stepAll(dt);
 }
 void Game::passEvent(sf::Event Event)
 {

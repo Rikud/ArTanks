@@ -12,14 +12,15 @@ public:
     enum Type
     {
     	PassiveType ,
-		LandType,
-		TankType,
-		WeaponType,
-		WeaponPostEffectType,
-		SightType,
+    	LandType,
+    	TankType,
+    	WeaponType,
+    	WeaponPostEffectType,
+    	SightType,
+		IIType
     } type;
-    WorldObject() = default;
-    WorldObject(Type m_type) : type(m_type) {} 
+    WorldObject() : type(PassiveType), selfDestruct(false) {}
+    WorldObject(Type m_type) : type(m_type), selfDestruct(false) {}
     virtual ~WorldObject(){};
     virtual void handleCollision(WorldObject &b) = 0;
     virtual void draw(sf::RenderTarget &target) = 0;

@@ -13,7 +13,8 @@
 
 Explosion::Explosion(sf::Vector2f pos,int r) :
     WorldObject(WeaponPostEffectType),
-    expCircle(r)
+    expCircle(r),
+	anim(AnimationCreator::create(AnimationType::MissileExplosionA,pos))
 {
     expCircle.setOrigin(r,r);
     expCircle.setPosition(pos);
@@ -43,15 +44,20 @@ void Explosion::handleCollision(WorldObject &b)
     default:
         break;
     }
-    selfDestruct = true;
 }
 void Explosion::draw(sf::RenderTarget &target)
 {
-
+	if(this->anim->selfDestruct == true)
+	{
+		selfDestruct = true;
+	}
+	this->anim->draw(target);
 }
 void Explosion::step(float dt)
 {
+	this->anim->step(dt);
 }
+
 void Explosion::reset()
 {
     selfDestruct = true;

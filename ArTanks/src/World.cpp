@@ -2,6 +2,7 @@
 #include "Land.h"
 #include "Tank.h"
 #include "Sight.h"
+#include "BotII.h"
 #include <iostream>
 
 World::World() : timer(0) { }
@@ -26,6 +27,9 @@ WorldObject* World::addObj(WorldObject::Type t)
     case WorldObject::SightType:
 		obj.reset(new Sight());
 		break;
+    case WorldObject::IIType:
+		obj.reset(new BotII());
+		break;
     default:
         playNice = false;
     }
@@ -40,6 +44,7 @@ void World::removeObj(std::list<WorldObjectptr>::iterator o)
 {
     objects.erase(o);
 }
+
 void World::drawAll(sf::RenderWindow &win)
 {
     for(auto &objit : objects)
@@ -62,8 +67,8 @@ void World::stepAll(float dt)
 				for(auto j = std::next(objit) ; j != objects.end() ; ++j)
 					//проверка взаимодействий объектов
 					(*objit)->handleCollision(*(*j).get());
-					(*objit)->step(updateRate);
-					++objit;
+				(*objit)->step(updateRate);
+				++objit;
         	}
         	else
         	{

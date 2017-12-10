@@ -1,10 +1,13 @@
 #include "Application.h"
+#include "utilities.h"
+#include "ResourceIdentifiers.h"
 #include "Game.h"
 
 void Application::run()
 {
 	//создание окна приложения
-    mainWindow.create(sf::VideoMode(windowWidth, windowHeight),"A Game feat. Tanks");
+    mainWindow.create(sf::VideoMode(windowWidth, windowHeight),"ArTanks");
+
     //установка частоты кадров
     mainWindow.setFramerateLimit(120);
     //установка режима вертикальной синхронизации
@@ -12,7 +15,8 @@ void Application::run()
     //запуск таймера
     sf::Clock frameTimer;
     //установка состояния приложения
-    changeState(GameState);
+    changeState(TitleScreenState);
+
     currentState->reset();
     // цикл приложения
     while(mainWindow.isOpen())
@@ -54,6 +58,35 @@ void Application::quit(const std::string& error)
     mainWindow.close();
 }
 
+sf::Texture& Application::getTexture(TextureIdentifier id)
+{
+    if(!ResourcesLoaded)
+        loadResources();
+    return textureMgr.get(id);
+}
+sf::Font& Application::getFont(FontIdentifier id)
+{
+    if(!ResourcesLoaded)
+        loadResources();
+    return fontMgr.get(id);
+}
+void Application::loadResources()
+{
+    if(ResourcesLoaded)
+        return;
+    if( !(textureMgr.load(TankTexture,"../texture/tank.png") &&
+    textureMgr.load(TurretTexture,"../texture/turret.png") &&
+    textureMgr.load(ExplosionA,"../texture/Explosion.png") &&
+    textureMgr.load(TurretTarget,"../texture/target.png") &&
+    textureMgr.load(ArrowDownSpriteSheet,"../texture/arrowdown.png") &&
+    textureMgr.load(TitleBg,"../texture/BG.png") &&
+    fontMgr.load(Purisa,"../texture/Purisa.ttf") &&
+    fontMgr.load(UbuntuCondensed,"../texture/Purisa.ttf")) )
+        throw std::runtime_error("failed to load resources");
+    else
+        ResourcesLoaded = true;
+}
+
 //смена режима приложения
 void Application::changeState(AppStateType as)
 {
@@ -66,15 +99,23 @@ AppState* Application::getState(AppStateType as)
 {
     switch(as)
     {
+    case TitleScreenState:
+       return &titleState;
     case GameState:
         return &mGame;
+    case GameOverState:
+        return &mGameOver;
     }
     return nullptr;
 }
-
+TextureManager Application::textureMgr;
+FontManager Application::fontMgr;
+bool Application::ResourcesLoaded{false};
 std::deque<AppStateType> Application::statesStack;
 sf::RenderWindow Application::mainWindow;
 Game Application::mGame;
+GameOverScreen Application::mGameOver;
+TitleScreen Application::titleState;
 
 AppState* Application::currentState;
 int main()

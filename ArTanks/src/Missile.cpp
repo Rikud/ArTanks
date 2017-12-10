@@ -51,7 +51,6 @@ void Missile::handleCollision(WorldObject &b)
         Land &l = static_cast<Land&>(b);
         if(projectile.getPosition().y + projectile.getRadius() > (windowHeight - l.getHeight(projectile.getPosition().x))) {
             explode();
-            l.destroyCircle(this->projectile.getPosition().x, this->projectile.getPosition().y, 25);
         }
     }
     break;
@@ -76,5 +75,7 @@ void Missile::step(float dt)
 void Missile::explode()
 {
     Application::getGame().addWorldObj(new Explosion(projectile.getPosition(),30));
+    Land* l = Application::getGame().getLand();
+    l->destroyCircle(this->projectile.getPosition().x, this->projectile.getPosition().y, 25);
     selfDestruct = true;
 }

@@ -46,6 +46,7 @@ public:
     void handleCollision(WorldObject &b);
     int  getHeight(int x);
     void step(float dt);
+
     void destroyCircle(int x0, int y0, int radius);
     void destroyColumn(int x,int top,int bottom);
     bool LandModified;
