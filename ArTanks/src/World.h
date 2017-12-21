@@ -7,7 +7,7 @@ class World
 {
 public:
     World();
-    ~World() = default;
+    ~World();
     WorldObject* addObj(WorldObject*);
     WorldObject* addObj(WorldObject::Type t);
     void removeObj(std::list<WorldObjectptr>::iterator);

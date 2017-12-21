@@ -14,7 +14,7 @@ struct slManifest //sliding columns information structure
         src = std::min(b.src,src);
         dest = std::max(b.dest,dest);
     }
-    bool inline intersects(slManifest b)
+    bool intersects(slManifest b)
     {
         slManifest *minRange = (dest-src < b.dest-b.src)?this:&b;
         slManifest *maxRange = (dest-src > b.dest-b.src)?this:&b;
@@ -43,7 +43,7 @@ public:
     void genHeightMap(Landtype Land_t);
     void draw(sf::RenderTarget &target);
     void reset();
-    void handleCollision(WorldObject &b);
+    void handleCollision(WorldObject& anotherObject);
     int  getHeight(int x);
     void step(float dt);
 

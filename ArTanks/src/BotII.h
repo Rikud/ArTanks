@@ -15,7 +15,7 @@
 
 class BotII: public WorldObject {
 public:
-	BotII();
+	static BotII* II();
 	virtual ~BotII();
 	inline void addBot(Bot* newBot) {this->botsArray.push_back(newBot);}
 	void draw(sf::RenderTarget& target);
@@ -23,6 +23,9 @@ public:
 	void reset();
 	void handleCollision(WorldObject &b);
 private:
+	BotII();
+	BotII(const BotII& root) = delete;
+	BotII& operator=(const BotII&) = delete;
 	std::vector<Bot*> botsArray;
 };
 

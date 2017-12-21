@@ -9,6 +9,8 @@
 #define L_POINTDIST(n) (-cachedSqrt(1+ (HMAP((n)-1) - HMAP(n))*(HMAP((n)-1) - HMAP(n)))-0.5)
 #define TANK_WIDTH     tank.getLocalBounds().width
 #define TANK_HEIGHT    tank.getLocalBounds().height
+#define RELOAD_TIME 3.0
+#define DEFAULT_TURRET_ANGLE -45
 
 const float lvelocity = 150;
 
@@ -16,8 +18,6 @@ Tank::Tank() :
     WorldObject(TankType) ,
     myOwner(nullptr) ,
     moving() ,
-    tank(tankTexture) ,
-    turret(turretTexture),
     freefall(true),
     velocity(),
     fadingLife(true),
@@ -25,18 +25,12 @@ Tank::Tank() :
     readyToFire(true),
   	reloadTimer(0.0)
 	{
-		if (tankTexture.loadFromFile("../texture/tank.png"))
-		{
-			tank.setTexture(tankTexture, true);
-		}
-		if (turretTexture.loadFromFile("../texture/turret.png"))
-		{
-			turret.setTexture(turretTexture, true);
-		}
+		tank.setTexture(Application::getTexture(TankTexture), true);
+		turret.setTexture(Application::getTexture(TurretTexture), true);
 
 		tank.setOrigin(tank.getLocalBounds().width / 2, tank.getLocalBounds().height);
 		turret.setOrigin(0, turret.getLocalBounds().height / 2);
-		turret.setRotation(-45);
+		turret.setRotation(DEFAULT_TURRET_ANGLE);
 		setPosition(sf::Vector2f());
 	}
 Tank::~Tank()
@@ -133,7 +127,7 @@ void Tank::step(float dt)
     }
     if (this->readyToFire == false) {
     	this->reloadTimer += dt;
-    	if (this->reloadTimer >= 3) {
+    	if (this->reloadTimer >= RELOAD_TIME) {
     		this->readyToFire = true;
     	}
     }
@@ -142,7 +136,7 @@ void Tank::step(float dt)
 void Tank::reset()
 {
     moving = 0;
-    turret.setRotation(-45);
+    turret.setRotation(DEFAULT_TURRET_ANGLE);
     if(!freefall)
     {
         freefall = true;

@@ -33,5 +33,5 @@ void GameOverScreen::update(float dt){}
 void GameOverScreen::passEvent(sf::Event Event)
 {
     if(Event.type == sf::Event::KeyPressed || Event.type == sf::Event::MouseButtonReleased)
-        Application::changeState(GameSetupState);
+        Application::changeState(TitleScreenState);
 }

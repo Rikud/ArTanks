@@ -13,7 +13,7 @@
 class ControlEntity {
 public:
 	ControlEntity();
-	ControlEntity(Tank *val);
+	ControlEntity(Tank* val);
 	virtual ~ControlEntity();
 	inline void rotateTurret(float f){ myTank->turret.rotate(f);}
 	inline void setPower(float pow){ power=pow;}

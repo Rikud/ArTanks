@@ -28,7 +28,7 @@ WorldObject* World::addObj(WorldObject::Type t)
 		obj.reset(new Sight());
 		break;
     case WorldObject::IIType:
-		obj.reset(new BotII());
+		obj.reset(BotII::II());
 		break;
     default:
         playNice = false;
@@ -83,4 +83,9 @@ void World::play()
     for(auto &objit : objects)
         objit->reset();
     timer = 0;
+}
+
+World::~World()
+{
+	this->clear();
 }

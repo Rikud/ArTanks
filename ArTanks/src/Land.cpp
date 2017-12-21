@@ -91,15 +91,15 @@ void Land::genHeightMap(Landtype Land_t)
     LandTexture.loadFromImage(LandImg);
     LandSpr.setTexture(LandTexture);
 }
-void Land::handleCollision(WorldObject &b)
+void Land::handleCollision(WorldObject& anotherObject)
 {
-	 switch(b.type)
+	 switch(anotherObject.type)
 	    {
 	    case TankType:
-	        b.handleCollision(*this);
+	    	anotherObject.handleCollision(*this);
 	        break;
 	    case WeaponType:
-	        b.handleCollision(*this);
+	    	anotherObject.handleCollision(*this);
 	        break;
 	    default:
 	        break;

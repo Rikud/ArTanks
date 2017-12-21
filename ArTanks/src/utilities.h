@@ -20,44 +20,20 @@ const int windowWidth = 800;
 const int windowHeight = 600;
 const int gravity = 180;
 
-bool inline isInWindow(int x, int y)
-{
-    return (x >= 0 && x < windowWidth && y >= 0 && y < windowHeight);
-}
+bool inline isInWindow(int x, int y);
+
 template<class IntType>
-
-bool inline isInRange(IntType t,IntType a,IntType b) //is t under the range [a,b] inclusive
-{
-    //a must be greater than b , we don't check for
-    return (t >= a && t <= b);
-}
+bool inline isInRange(IntType t,IntType a,IntType b);
 
 template<class T>
-T inline arctan(T y,T x)
-{
-    return x?std::atan2(y,x):M_PI_2;
-}
+T inline arctan(T y,T x);
 
 template<class T>
-T inline sq(T a)
-{
-    return a*a;
-}
+T inline sq(T a);
 
-inline float round(float number,float divisor)
-{
-    return divisor*static_cast<long long>(number/divisor+0.5);
-}
-inline double round(double number,double divisor)
-{
-    return divisor*static_cast<long long>(number/divisor+0.5);
-}
+inline float round(float number,float divisor);
 
-template <typename T> //width and height must be +ve
-inline bool contains(T rectX,T rectY,T width,T height,T x, T y)
-{
-    return (x >= rectX) && (x < rectX+width) && (y >= rectY) && (y < rectY+height);
-}
+inline double round(double number,double divisor);
 
 sf::Vector2f RotatePoint(sf::Vector2f Point, sf::Vector2f Origin, double phi);
 

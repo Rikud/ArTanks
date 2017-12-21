@@ -11,26 +11,28 @@
 #include "Application.h"
 #include "Game.h"
 
-Explosion::Explosion(sf::Vector2f pos,int r) :
+Explosion::Explosion(sf::Vector2f pos,int radius) :
     WorldObject(WeaponPostEffectType),
-    expCircle(r),
+    expCircle(radius),
 	anim(AnimationCreator::create(AnimationType::MissileExplosionA,pos))
 {
-    expCircle.setOrigin(r,r);
+    expCircle.setOrigin(radius,radius);
     expCircle.setPosition(pos);
     Application::getGame().incCounter();
+    Land* land = Application::getGame().getLand();
+	land->destroyCircle(pos.x, pos.y, radius + 5);
 }
 Explosion::~Explosion()
 {
     Application::getGame().decCounter();
 }
-void Explosion::handleCollision(WorldObject &b)
+void Explosion::handleCollision(WorldObject& anotherObject)
 {
-    switch(b.type)
+    switch(anotherObject.type)
     {
     case WorldObject::TankType:
     {
-        Tank &t = static_cast<Tank&>(b);
+        Tank &t = static_cast<Tank&>(anotherObject);
         bool &tankActed = tanksActedOn[&t];
         if(tankActed == false && intersects(expCircle,t.getTankRect()))
         {

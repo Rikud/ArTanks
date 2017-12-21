@@ -19,8 +19,8 @@ public:
 	~Explosion();
 	inline void setRadius(int r){ expCircle.setRadius(r); }
 	inline int getRadius(){ return expCircle.getRadius(); }
-	void handleCollision(WorldObject &b);
-	void draw(sf::RenderTarget &target);
+	void handleCollision(WorldObject& anotherObject);
+	void draw(sf::RenderTarget& target);
 	void step(float dt);
 	void reset();
 private:

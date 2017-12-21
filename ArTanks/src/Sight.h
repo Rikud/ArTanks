@@ -22,7 +22,7 @@ public:
 	void setPlayer(Player *p);
 	void handleCollision(WorldObject &b);
 private:
-	Player* myOwner;
+	Player* owner;
 	sf::Texture texture;
 	sf::Sprite	sprite;
 };

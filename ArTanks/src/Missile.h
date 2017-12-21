@@ -14,7 +14,7 @@ class Missile: public WorldObject {
 public:
     Missile(double x, double y);
     ~Missile();
-    void handleCollision(WorldObject &b);
+    void handleCollision(WorldObject& anotherObject);
     void draw(sf::RenderTarget &target);
     void step(float dt);
     void setVelocity(double x, double y);

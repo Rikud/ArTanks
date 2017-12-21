@@ -2,16 +2,16 @@
 #include "Missile.h"
 #include "Game.h"
 
-Player::Player() : mySight(nullptr) {}
+Player::Player() : sight(nullptr) {}
 
-Player::Player(Tank *val) :
-	ControlEntity(val),
-	mySight(nullptr)
+Player::Player(Tank* playerTank) :
+	ControlEntity(playerTank),
+	sight(nullptr)
 {}
 
-Player::Player(Tank *val, Sight *sight) :
-	ControlEntity(val),
-	mySight(sight)
+Player::Player(Tank* playerTank, Sight* playerSight) :
+	ControlEntity(playerTank),
+	sight(playerSight)
 {
-	this->mySight->setPlayer(this);
+	this->sight->setPlayer(this);
 }

@@ -22,19 +22,17 @@ void Application::run()
     while(mainWindow.isOpen())
     {
         sf::Event event;
-        //проверка, что не нажата клавиша esc
         while(mainWindow.pollEvent(event))
         {
+        	//проверка, что не нажата клавиша esc
             if(event.type == sf::Event::Closed || (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape))
             {
-                mainWindow.close();
+                quit("none");
                 return;
             }
             else
                 currentState->passEvent(event); //если другое событие
         }
-        //проверка нажатия клавиш управления танком
-        currentState->passEvent(event);
         //очистка экрана окна
         mainWindow.clear(sf::Color::White);
         //отрисовка всех элементов мира
@@ -102,9 +100,9 @@ AppState* Application::getState(AppStateType as)
     case TitleScreenState:
        return &titleState;
     case GameState:
-        return &mGame;
+        return &game;
     case GameOverState:
-        return &mGameOver;
+        return &gameOver;
     }
     return nullptr;
 }
@@ -113,8 +111,8 @@ FontManager Application::fontMgr;
 bool Application::ResourcesLoaded{false};
 std::deque<AppStateType> Application::statesStack;
 sf::RenderWindow Application::mainWindow;
-Game Application::mGame;
-GameOverScreen Application::mGameOver;
+Game Application::game;
+GameOverScreen Application::gameOver;
 TitleScreen Application::titleState;
 
 AppState* Application::currentState;

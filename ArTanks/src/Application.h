@@ -21,17 +21,16 @@ public:
     static void loadResources();
     static void run();
     static void quit(const std::string& error = "none");
-    static Game& getGame(){ return mGame; }
+    static Game& getGame(){ return game; }
 private:
-
     static TextureManager textureMgr;
     static FontManager fontMgr;
     static bool ResourcesLoaded;
     static AppState* getState(AppStateType as);
     static std::deque<AppStateType> statesStack;
     static sf::RenderWindow mainWindow;
-    static Game mGame;
-    static GameOverScreen mGameOver;
+    static Game game;
+    static GameOverScreen gameOver;
     static TitleScreen titleState;
     static AppState* currentState;
 };

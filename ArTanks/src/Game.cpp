@@ -22,16 +22,18 @@ void Game::newGame(int n_players,Land::Landtype land_t)
     Application::getWindow().setMouseCursorVisible(false);
 }
 
-void Game::addPlayer() {
-	Tank* pTank = static_cast<Tank*>(world.addObj(WorldObject::TankType));
-	Sight* pSight = static_cast<Sight*>(world.addObj(WorldObject::SightType));
-	this->player = new Player(pTank, pSight);
+void Game::addPlayer()
+{
+	Tank* playerTank = static_cast<Tank*>(world.addObj(WorldObject::TankType));
+	Sight* playerSight = static_cast<Sight*>(world.addObj(WorldObject::SightType));
+	this->player = new Player(playerTank, playerSight);
 	int x = rand() % (windowWidth - 20) + 10;
-	pTank->setPosition(sf::Vector2f(x,windowHeight-getLandHeight(x)-10));
-	pTank->setOwner(this->player);
+	playerTank->setPosition(sf::Vector2f(x,windowHeight-getLandHeight(x)-10));
+	playerTank->setOwner(this->player);
 }
 
-void Game::addBot() {
+void Game::addBot()
+{
 	Tank* pTank = static_cast<Tank*>(world.addObj(WorldObject::TankType));
 	if (this->botII == nullptr) {
 		this->botII = static_cast<BotII*>(world.addObj(WorldObject::IIType));
@@ -77,4 +79,10 @@ void Game::passEvent(sf::Event Event)
 	else if (Event.type == sf::Event::MouseMoved) {
 		this->player->moveCursor();
 	}
+}
+
+Game::~Game()
+{
+	if (this->player == nullptr)
+		delete this->player;
 }

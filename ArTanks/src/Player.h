@@ -6,11 +6,11 @@ class Player : public ControlEntity
 {
 public:
     Player();
-    Player(Tank *val);
-    Player(Tank *val, Sight* sight);
-    inline void moveCursor() {this->mySight->move();}
+    Player(Tank* playerTank);
+    Player(Tank* playerTank, Sight* sight);
+    inline void moveCursor() {this->sight->move();}
 private:
-    Sight* mySight;
+    Sight* sight;
 };
 typedef std::unique_ptr<Player> Playerptr;
 #endif // PLAYER_H

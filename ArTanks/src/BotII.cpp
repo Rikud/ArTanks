@@ -7,6 +7,12 @@
 
 #include "BotII.h"
 
+BotII* BotII::II()
+{
+	static BotII Single;
+	return &Single;
+}
+
 BotII::BotII() : WorldObject(IIType)
 {
 	// TODO Auto-generated constructor stub

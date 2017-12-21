@@ -29,8 +29,6 @@ public:
 
 private:
     void setLifeFill(int l);
-    sf::Texture tankTexture;
-    sf::Texture turretTexture;
     ControlEntity* myOwner;
     int moving;//on land
     sf::Sprite tank;

@@ -22,7 +22,7 @@ public:
     WorldObject() : type(PassiveType), selfDestruct(false) {}
     WorldObject(Type m_type) : type(m_type), selfDestruct(false) {}
     virtual ~WorldObject(){};
-    virtual void handleCollision(WorldObject &b) = 0;
+    virtual void handleCollision(WorldObject& anotherObject) = 0;
     virtual void draw(sf::RenderTarget &target) = 0;
     virtual void reset() = 0;
     virtual void step(float dt) = 0;
